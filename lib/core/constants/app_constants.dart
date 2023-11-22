@@ -1,6 +1,8 @@
 
 
 class AppConstants {
+
+  static const String myToken = 'Access Token';
   static const String baseUrl = 'https://my-safe-space.alacrity.technology/api';
   static const String url = '/login';
   static const String backgroundImagePath =

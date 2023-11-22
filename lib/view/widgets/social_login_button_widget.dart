@@ -28,6 +28,7 @@ class SocialLoginButton extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
+          elevation: 3,
           backgroundColor: buttonColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(

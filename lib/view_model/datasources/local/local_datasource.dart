@@ -2,16 +2,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 abstract class TokenLocalDataSource{
-  Future<String> getCachedToken();
-  Future<void> cacheToken(String token);
+  Future<String> getCachedToken({required String key});
+  Future<void> cacheToken({required String token,required
+  String key});
 }
 class TokenLocalDataSourceImpl implements TokenLocalDataSource{
   final SharedPreferences sharedPreferences;
   TokenLocalDataSourceImpl({required this.sharedPreferences});
 
   @override
-  Future<String> getCachedToken() async {
-    final cachedToken= sharedPreferences.getString('token');
+  Future<String> getCachedToken({required String key}) async {
+    final cachedToken= sharedPreferences.getString(key);
     if(cachedToken != null){
       return cachedToken;
     }
@@ -23,9 +24,9 @@ class TokenLocalDataSourceImpl implements TokenLocalDataSource{
   }
 
   @override
-  Future<void> cacheToken(String token) {
-    final cacheSharedpref = sharedPreferences.setString('token',
-        token);
+  Future<void> cacheToken({required String token,required
+  String key}) {
+    final cacheSharedpref = sharedPreferences.setString(key, token);
     return cacheSharedpref;
   }
 }

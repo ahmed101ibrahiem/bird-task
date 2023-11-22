@@ -20,50 +20,14 @@ class LoginCubit extends Cubit<LoginState> {
 
   static LoginCubit get(context) => BlocProvider.of(context);
 
-  // Future<dynamic> login({  required String email,
-  //   required String password,
-  // }) async {
-  //   emit(LoginLoadingState());
-  //   await remoteDataSource.login(email: email,password:password , ).
-  //   then((value) {
-  //     log('email success');
-  //     final mainToken = value.accessToken;
-  //
-  //     if (kDebugMode) {
-  //       print('Success login : ${mainToken}');
-  //     }
-  //
-  //     emit(LoginSuccessState(loginModel: value));
-  //     }).catchError((error){
-  //       if (error is DioException)
-  //       {
-  //         String message = "Something went wrong";
-  //         if (error.message!.contains("SocketException")) {
-  //           message = 'No internet connection';
-  //         }
-  //         else if (error.message!.contains("Http status error [400]")) {
-  //           message = "Email or password is not correct";
-  //         }
-  //         else if (error.message!.contains("Http status error [403]")) {
-  //           message = "This account doesn't exits";
-  //         }
-  //         print(error.response?.data['message']);
-  //         showToast(message: error.response!.data['message'].toString());
-  //       }
-  //       emit(LoginErrorState(message: error.toString()));
-  //       throw error;
-  //
-  //     });
-  //
-  // }
-
   Future<String> getToken() async {
-    final String token = await tokenLocalDataSource.getCachedToken();
+    final String token = await tokenLocalDataSource.getCachedToken(key: AppConstants.myToken);
     if (kDebugMode) {
       print(token);
     }
     return token;
   }
+
 
   Future<void> Login({
     required String email,
@@ -77,11 +41,10 @@ class LoginCubit extends Cubit<LoginState> {
       log('email success');
       final data = LoginModel.fromJson(value.data);
       final myToken = data.accessToken;
-
       if (kDebugMode) {
         print('Success login : ${myToken}');
       }
-      tokenLocalDataSource.cacheToken(myToken);
+      tokenLocalDataSource.cacheToken( token:myToken, key: AppConstants.myToken);
       emit(LoginSuccessState(loginModel: data));
     }).catchError((error) {
       emit(LoginErrorState(message: error.toString()));
