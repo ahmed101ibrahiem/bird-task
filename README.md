@@ -26,8 +26,6 @@
 
 <h2 href="#packages-used">📦 Packages used : </h2>
  <ul>
-    <li> equatable:</li>
-   <li>intl:</li>
    <li>flutter_svg:</li>
    <li>get_it</li>
    <li>permission_handler:</li>
