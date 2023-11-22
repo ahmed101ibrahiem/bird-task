@@ -180,6 +180,7 @@ class _LoginBodyState extends State<LoginBody> {
                   height: 24.0,
                 ),
                 const SocialLoginSection(),
+
                 const LoginDetailsWidget()
               ],
             ),
