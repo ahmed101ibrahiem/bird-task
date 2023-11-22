@@ -1,6 +1,3 @@
-# Startup-Add
-https://github.com/SoftwareHouseR2/incubationMA.git
-
 
 <div align="center">
     <h1 align='center'><i>Bird Solutions Task</i></h1>
