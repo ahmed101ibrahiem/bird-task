@@ -1,0 +1,239 @@
+import 'package:bird_task/core/constants/app_color.dart';
+import 'package:bird_task/core/constants/app_constants.dart';
+import 'package:bird_task/core/constants/app_validators.dart';
+import 'package:bird_task/view/widgets/social_login_widget.dart';
+import 'package:bird_task/view_model/cubit/login_cubit.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../core/shared/components.dart';
+import '../../core/shared/custom_button_widget.dart';
+import 'login_details_widget.dart';
+
+
+
+class LoginBody extends StatefulWidget {
+   LoginBody({
+    super.key,
+  });
+
+  @override
+  State<LoginBody> createState() => _LoginBodyState();
+}
+
+class _LoginBodyState extends State<LoginBody> {
+  late final TextEditingController _emailController;
+  late final TextEditingController _passwordController;
+  late final FocusNode _emailFocusNode;
+  late final FocusNode _passwordFocusNode;
+  late final _formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
+    // Focus Nodes
+    _emailFocusNode = FocusNode();
+    _passwordFocusNode = FocusNode();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    // Focus Nodes
+    _emailFocusNode.dispose();
+    _passwordFocusNode.dispose();
+    super.dispose();
+  }
+bool isLoading = false;
+
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return  BlocConsumer<LoginCubit, LoginState>(
+      listener: (context, state) {
+        if (state is LoginSuccessState){
+          showToast(message: 'Success Login');
+        }
+        if(state is LoginLoadingState){
+          isLoading = true;
+        }else{
+          isLoading = false;
+        }
+
+      },
+  builder: (context, state) {
+        final cubit = LoginCubit.get(context);
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(height: size.height *0.12),
+            const Text('Welcome Back!',style: TextStyle(
+              fontSize: 24.0,
+              color:AppColors.textColor
+            ),),
+            const SizedBox(height: 8.0,),
+            const Text('Login to continue Radio App',
+              style: TextStyle(
+              fontSize: 16.0,
+              color: AppColors.textColor
+            ),),
+            const SizedBox(height: 32.0,),
+            // form login
+            Form(
+              key: _formKey,
+                child: Column(
+              children: [
+                // email address
+                TextFormField(
+                  controller: _emailController,
+                  focusNode: _emailFocusNode,
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration:  InputDecoration(
+                    border: textFormBorder(),
+                    focusedBorder: textFormBorder(),
+                    errorBorder: textFormBorder(),
+                    disabledBorder: textFormBorder(),
+                    focusedErrorBorder: textFormBorder(),
+                    enabledBorder: textFormBorder(),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 18),
+                    hintText: "Email Address",
+                    filled: true,
+                    fillColor: AppColors.textFieldColor,
+                    hintStyle: const TextStyle(color: AppColors.textFormColor,
+                        fontSize: 14.0,),
+                    prefixIcon: const Icon(
+                      Icons.mail_outline,
+                      color:  AppColors.textFormColor,
+                    ),
+                  ),
+                  validator: (value) {
+                    return AppValidators.emailValidator(value);
+                  },
+                  onFieldSubmitted: (value) {
+                    FocusScope.of(context)
+                        .requestFocus(_passwordFocusNode);
+                  },
+
+                ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                // password
+                TextFormField(
+                  controller: _passwordController,
+                  focusNode: _passwordFocusNode,
+                  obscureText: true,
+                  textInputAction: TextInputAction.done,
+                  keyboardType: TextInputType.visiblePassword,
+                  decoration:  InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(vertical: 18),
+                    border: textFormBorder(),
+                    focusedBorder: textFormBorder(),
+                    errorBorder: textFormBorder(),
+                    disabledBorder: textFormBorder(),
+                    focusedErrorBorder: textFormBorder(),
+                    enabledBorder: textFormBorder(),
+                    filled: true,
+                    fillColor: AppColors.textFieldColor,
+                    hintText: "Password",
+                    hintStyle: const TextStyle(color: AppColors.textFormColor,
+                      fontSize: 14.0,),
+                    prefixIcon: const Icon(
+                      Icons.lock_outline,
+                        color: AppColors.textFormColor
+                    ),
+                  ),
+                  validator: (value) {
+                    return AppValidators.passwordValidator(value);
+                  },
+                  onFieldSubmitted: (value) {
+                    final isValid = _formKey.currentState!.validate();
+                    showToast(message: 'Success login');
+                  },
+                ),
+              ],
+            )),
+            // remember me
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(children: [
+                  Container(
+                    //padding: const EdgeInsets.all(2.0),
+                    height: 16.0,
+                    width: 16.0,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColors.white,
+                      border: Border.all(color: AppColors.borderColor,width: 1.0)
+                    ),
+                    child: const Center(child: Icon(Icons.done,color: AppColors.iconDoneColor,size: 10.0,)),
+                  ),
+                  const SizedBox(width:8.0 ,),
+                  const Text('Remember me',style: TextStyle(
+                    fontSize: 13.0,
+                    color: AppColors.darkPrimary,
+                    fontWeight: FontWeight.w500
+                  ),)
+                ],),
+                TextButton(onPressed: (){}, child: const Text('Forgot password?',
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    color:AppColors.subTitleColor
+                ),))
+              ],
+            ),
+
+            const SizedBox(height: 24.0,),
+            CustomButtonWidget(
+              text: 'Log In',
+              isLoad: isLoading,
+              fun: (){
+              final isValid = _formKey.currentState!.validate();
+              FocusScope.of(context).unfocus();
+              if (isValid) {
+                cubit.login(email: _emailController.text.trim(),
+                    password: _passwordController.text.trim());
+              }
+            },),
+            const SizedBox(height: 24.0,),
+            const Text(
+              'OR',style: TextStyle(color: AppColors.darkPrimary,fontSize: 14.0,
+                fontWeight: FontWeight.w400),
+            ),
+            const SizedBox(height: 24.0,),
+             SocialLoginButton(text: 'Continue with Google',
+              iconPath: AppConstants.googleIcon,
+              buttonColor: AppColors.white,
+               textColor: AppColors.darkPrimary,
+            ),
+            const SizedBox(height: 28.0,),
+             SocialLoginButton(text: 'Sign In with Apple ID',
+              iconPath: AppConstants.appleIcon,
+              buttonColor: AppColors.darkPrimary,
+               iconColor: AppColors.white,
+            ),
+            const SizedBox(height: 28.0,),
+             SocialLoginButton(text: 'Continue with Facebook',
+              iconPath: AppConstants.facebookIcon,
+              buttonColor: AppColors.darkBlue,
+
+            ),
+            LoginDetailsWidget()
+          ],
+        ),
+      ),
+    );
+  },
+);
+  }
+
+
+}
