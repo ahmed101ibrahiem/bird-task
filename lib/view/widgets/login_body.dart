@@ -56,7 +56,7 @@ class _LoginBodyState extends State<LoginBody> {
         if (state is LoginSuccessState) {
           showToast(message: 'Success Login');
         } else if (state is LoginErrorState) {
-          showToast(message: state.message!);
+          showToast(message: 'Opps there was error, please try again');
         }
         if (state is LoginLoadingState) {
           isLoading = true;
@@ -180,7 +180,6 @@ class _LoginBodyState extends State<LoginBody> {
                   height: 24.0,
                 ),
                 const SocialLoginSection(),
-
                 const LoginDetailsWidget()
               ],
             ),
