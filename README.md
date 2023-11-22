@@ -3,10 +3,8 @@ https://github.com/SoftwareHouseR2/incubationMA.git
 
 
 <div align="center">
-    <h1 align='center'><i>Startup-App : Orange digital center App</i></h1>
+    <h1 align='center'><i>Bird Solutions Task</i></h1>
 </div>
-
-[![Watch the Full App promo]((https://github.com/hadikachmar3/Flutter3.10-E-Commerce_Course/assets/38382273/71b188b6-53c7-478b-8dfa-5aa44e0e171e))](https://github.com/hadikachmar3/Flutter3.10-E-Commerce_Course/assets/38382273/407528a9-e2dc-4bd7-b6f3-d41ba2ecb010)
 
 <details open="open">
 <summary>
@@ -19,7 +17,6 @@ https://github.com/SoftwareHouseR2/incubationMA.git
 - [🏁 Getting started](#getting-started)
 - [📦 Packages used](#packages-used)
 - [📷 Features](#features)
-- [🔒 License](#license)
 </details>
 <hr>
 <h2 href="#built-with">⛏️ Built With : </h2>
@@ -64,17 +61,6 @@ https://github.com/SoftwareHouseR2/incubationMA.git
 
 ## 📷 Features
 
-<summary>
-<h3 style="display:inline">
-<strong><em>⚡️Splash Screens</em></strong></h3>
-</summary>
-<div align="center" style="display: flex; flex-wrap: wrap; justify-content: space-around;">
-    <img src="./screenshots/Splash Screen OnBoarding/Splash Screen0.jpg"  style="width: 40%;">
-     <img src="screenshots/Splash Screen OnBoarding/SplashScreen.jpg"  style="width: 40%;">
-    <img src="screenshots/Splash Screen OnBoarding/onboard1.jpg" style="width: 30%;">
-     <img src="screenshots/Splash Screen OnBoarding/onboard2.jpg" style="width: 30%;">
-     <img src="screenshots/Splash Screen OnBoarding/onboard3.jpg" style="width: 30%;">
-</div>
 
 <summary>
 <h3 style="display:inline">
@@ -92,42 +78,4 @@ https://github.com/SoftwareHouseR2/incubationMA.git
     <img src="screenshots/Auth/signup-startup.jpg" style="width: 30%;">
     <img src="screenshots/Auth/signup-startup3.jpg" style="width: 30%;">
 </div>
-<summary>
-<h3 style="display:inline">
-<strong><em>📌 Pick Interest</em></strong></h3>
-</summary>
-<div align="center">
-   <img src="./screenshots/Pick interest/Interests1.png">
-    <img src="./screenshots/Pick interest/Interests2.png">
-</div>
-
-<summary>
-<h3 style="display:inline">
-<strong><em>🏠 Home</em></strong></h3>
-</summary>
-<div align="center">
-   <img src="./screenshots/home/Home.png">
-</div>
-
-<summary>
-<h3 style="display:inline">
-<strong><em>⚔️ Challenges </em></strong></h3>
-</summary>
-<div align="center">
-   <img src="./screenshots/Challenges/ChallangeDetails.png">
-</div>
-
-<summary>
-<h3 style="display:inline">
-<strong><em>📖 Course Details </em></strong></h3>
-</summary>
-<div align="center">
-   <img src="./screenshots/Course Details/CourseDetails1.png">
-    <img src="./screenshots/Course Details/CourseDetails2.png">
-    <img src="./screenshots/Course Details/CourseDetails3.png">
-</div>
-
-## 🔒 License <a name = "license"></a>
-
-> This software is licensed under MIT License, See [License](https://github.com/CMP24-SWE-TEAM3/Backend/blob/main/LICENSE) .
 
