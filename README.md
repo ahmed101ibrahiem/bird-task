@@ -29,29 +29,13 @@
     <li> equatable:</li>
    <li>intl:</li>
    <li>flutter_svg:</li>
-   <li>font_awesome_flutter:</li>
-   <li>google_fonts:</li>
-   <li>shimmer:</li>
+   <li>get_it</li>
    <li>permission_handler:</li>
-   <li>flutter_datetime_picker:</li>
-   <li>dots_indicator:</li>
    <li>fluttertoast:</li>
-   <li>flutter_screenutil:</li>
-   <li>url_launcher:</li>
-   <li>contained_tab_bar_view:</li>
-   <li>flutter_windowmanager:</li>
-   <li>geolocator:</li>
-   <li>flutter_datetime_picker:</li>
-   <li>bloc:</li>
    <li>flutter_bloc:</li>
-   <li>path_provider:</li>
    <li>shared_preferences:</li>
    <li>dio:</li>
-   <li>curl_logger_dio_interceptor:</li>
-   <li>flutter_screenutil:</li>
-   <li>sqflite:</li>
-   <li>shimmer: </li>
-   <li>dots_indicator:</li>
+    <li>flutter_spinkit::</li>
  </ul>
 <hr>
 
