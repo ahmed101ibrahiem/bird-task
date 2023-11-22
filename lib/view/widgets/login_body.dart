@@ -1,16 +1,14 @@
 import 'package:bird_task/core/constants/app_color.dart';
-import 'package:bird_task/core/constants/app_constants.dart';
 import 'package:bird_task/core/constants/app_validators.dart';
-import 'package:bird_task/view/widgets/social_login_widget.dart';
+import 'package:bird_task/view/widgets/social_login_section.dart';
 import 'package:bird_task/view_model/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../core/shared/components.dart';
 import '../../core/shared/custom_button_widget.dart';
+import 'forget_and_pass_section.dart';
 import 'login_details_widget.dart';
-
-
+import 'login_head_section.dart';
 
 class LoginBody extends StatefulWidget {
    LoginBody({
@@ -57,6 +55,9 @@ bool isLoading = false;
         if (state is LoginSuccessState){
           showToast(message: 'Success Login');
         }
+        else if(state is LoginErrorState){
+          showToast(message: state.message!);
+        }
         if(state is LoginLoadingState){
           isLoading = true;
         }else{
@@ -73,17 +74,7 @@ bool isLoading = false;
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: size.height *0.12),
-            const Text('Welcome Back!',style: TextStyle(
-              fontSize: 24.0,
-              color:AppColors.textColor
-            ),),
-            const SizedBox(height: 8.0,),
-            const Text('Login to continue Radio App',
-              style: TextStyle(
-              fontSize: 16.0,
-              color: AppColors.textColor
-            ),),
-            const SizedBox(height: 32.0,),
+            const LoginHeadSection(),
             // form login
             Form(
               key: _formKey,
@@ -153,80 +144,33 @@ bool isLoading = false;
                   validator: (value) {
                     return AppValidators.passwordValidator(value);
                   },
-                  onFieldSubmitted: (value) {
+                  onFieldSubmitted: (value)async {
                     final isValid = _formKey.currentState!.validate();
-                    showToast(message: 'Success login');
+                    FocusScope.of(context).unfocus();
+                    if (isValid) {
+                     await cubit.Login(email: _emailController.text.trim(),
+                          password: _passwordController.text.trim());
+                    }
                   },
                 ),
               ],
             )),
             // remember me
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(children: [
-                  Container(
-                    //padding: const EdgeInsets.all(2.0),
-                    height: 16.0,
-                    width: 16.0,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: AppColors.white,
-                      border: Border.all(color: AppColors.borderColor,width: 1.0)
-                    ),
-                    child: const Center(child: Icon(Icons.done,color: AppColors.iconDoneColor,size: 10.0,)),
-                  ),
-                  const SizedBox(width:8.0 ,),
-                  const Text('Remember me',style: TextStyle(
-                    fontSize: 13.0,
-                    color: AppColors.darkPrimary,
-                    fontWeight: FontWeight.w500
-                  ),)
-                ],),
-                TextButton(onPressed: (){}, child: const Text('Forgot password?',
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color:AppColors.subTitleColor
-                ),))
-              ],
-            ),
-
+            const LoginForgetAndRememberSection(),
             const SizedBox(height: 24.0,),
             CustomButtonWidget(
               text: 'Log In',
               isLoad: isLoading,
-              fun: (){
-              final isValid = _formKey.currentState!.validate();
+              fun: ()async{              final isValid = _formKey.currentState!.validate();
               FocusScope.of(context).unfocus();
               if (isValid) {
-                cubit.login(email: _emailController.text.trim(),
+               await cubit.Login(email: _emailController.text.trim(),
                     password: _passwordController.text.trim());
               }
             },),
             const SizedBox(height: 24.0,),
-            const Text(
-              'OR',style: TextStyle(color: AppColors.darkPrimary,fontSize: 14.0,
-                fontWeight: FontWeight.w400),
-            ),
-            const SizedBox(height: 24.0,),
-             SocialLoginButton(text: 'Continue with Google',
-              iconPath: AppConstants.googleIcon,
-              buttonColor: AppColors.white,
-               textColor: AppColors.darkPrimary,
-            ),
-            const SizedBox(height: 28.0,),
-             SocialLoginButton(text: 'Sign In with Apple ID',
-              iconPath: AppConstants.appleIcon,
-              buttonColor: AppColors.darkPrimary,
-               iconColor: AppColors.white,
-            ),
-            const SizedBox(height: 28.0,),
-             SocialLoginButton(text: 'Continue with Facebook',
-              iconPath: AppConstants.facebookIcon,
-              buttonColor: AppColors.darkBlue,
-
-            ),
-            LoginDetailsWidget()
+            const SocialLoginSection(),
+            const LoginDetailsWidget()
           ],
         ),
       ),
@@ -237,3 +181,6 @@ bool isLoading = false;
 
 
 }
+
+
+
